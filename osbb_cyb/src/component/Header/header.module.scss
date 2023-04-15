@@ -8,6 +8,9 @@
 
 body {
   height: 100vh;
+  //background-color: #362626;
+}
+.header{
   background-color: #362626;
 }
 
@@ -121,6 +124,10 @@ header {
     left: 2rem;
     width: unset;
   }
+}
+.email{
+  color: white;
+  padding: 0 10px 0 0;
 }
 
 

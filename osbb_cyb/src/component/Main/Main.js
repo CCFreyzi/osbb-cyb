@@ -5,6 +5,8 @@ import Home_Page from "./Home_Page/Home_Page";
 import Profile_Page from "./Profile_Page/Profile_Page";
 import Contact_Page from "./Contact_Page/Contact_Page";
 import Management_Page from "./Management_Page/Management_Page";
+import Login from "../Auth/login/login";
+import Register from "../Auth/register/register";
 
 const Main = () => {
 
@@ -15,6 +17,8 @@ const Main = () => {
                 <Route path={'/management'} element={<Management_Page />}/>
                 <Route path={'/contact'} element={<Contact_Page />}/>
                 <Route path={'/profile'} element={<Profile_Page />}/>
+                <Route path={'/login'} element={<Login />}/>
+                <Route path={'/register'} element={<Register />}/>
             </Routes>
         </div>
     )
