@@ -1,23 +1,21 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Open Sans', sans-serif;
-  list-style: none;
-}
+
 
 body {
   height: 100vh;
   //background-color: #362626;
 }
 .header{
-  background-color: #362626;
+  background-color: white;
 }
 
 a {
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: saddlebrown;
   text-decoration: none;
-  color: #fff;
-  font-size: 1rem;
+  //font-family: 'Calibri', sans-serif;
+  font-family: 'Bahnschrift', sans-serif;
+
 }
 
 a:hover {
@@ -40,8 +38,13 @@ header {
 }
 
 .logo a{
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-family: 'Bahnschrift', sans-serif;
+  //font-family: 'Calibri', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 600;
+  //color: #564f4f;
+  color: saddlebrown;
+
 }
 
 .links {
@@ -51,18 +54,20 @@ header {
 
 .action_btn {
   background-color: orange;
-  color: #fff;
+  color: black;
   padding: 0.5rem 1rem;
   border: none;
   outline: none;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
     scale: 1.05;
+    color: #4b230b;
+
   }
 
   &:active {
@@ -71,10 +76,16 @@ header {
 }
 
 .toggle_btn {
-  color: #fff;
+  color: black;
   font-size: 1.5rem;
   cursor: pointer;
   display: none;
+}
+
+.profile_section{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .dropdown_menu{
@@ -126,8 +137,9 @@ header {
   }
 }
 .email{
-  color: white;
+  color: black;
   padding: 0 10px 0 0;
+  font-size: 1.2rem;
 }
 
 

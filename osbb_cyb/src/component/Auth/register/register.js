@@ -1,32 +1,52 @@
 import {useEffect, useState} from "react";
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut} from "firebase/auth"
-import {auth} from "../../../firebase-config";
-import {setData} from "../../../store/slice/auth-slice";
+import {
+    createUserWithEmailAndPassword,
+    signInWithPopup,
+    signOut
+} from "firebase/auth"
+import {db} from "../../../firebase-config";
+import {addDoc, collection, doc, setDoc} from "firebase/firestore"
+
+import {auth, googleProvider} from "../../../firebase-config";
+import {setAnotherData, setEmailAndUid} from "../../../store/slice/auth-slice";
 import {useDispatch, useSelector} from "react-redux";
 
 const Register = () => {
     const dispatch = useDispatch()
-    const email = useSelector(state => state.auth.email)
+    const email = useSelector(state => state.auth.email);
+    // const uid = useSelector(state => state.auth.id);
 
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
 
-    const [loginEmail, setLoginEmail] = useState("");
-    const [loginPassword, setLoginPassword] = useState("");
+    const [name, setName] = useState("");
+    const [surName, setSurName] = useState("");
+    const [age, setAge] = useState(0);
 
-    const [user, setUser] = useState({});
-    //
-    // useEffect(() => {
-    //     onAuthStateChanged(auth, (currentUser) => {
-    //         console.log()
-    //         setUser(currentUser);
-    //         dispatch(setData({email: currentUser.email}))
-    //
-    //     });
-    // }, [])
+    const usersCollectionRef = collection(db, "users")
+
+    const onsubmitUser = async (uid) => {
+        try {
+            // await addDoc(usersCollectionRef, {name, surName, age})
+            await setDoc(doc(usersCollectionRef, `${uid}`), {name, surName, age})
+
+        } catch (err) {
+            console.error(err)
+        }
+    }
+    const signInWithGoogle = async () => {
+        try {
+            await signInWithPopup(auth, googleProvider)
+        } catch (err) {
+            console.error(err)
+        }
+
+    }
     const logout = async () => {
-        dispatch(setData({email: null}))
+        dispatch(setEmailAndUid({email: '', id: ''}))
+        dispatch(setAnotherData({name:'', surname: '', age: 0}))
         await signOut(auth);
+
     };
 
     const register = async () => {
@@ -35,20 +55,9 @@ const Register = () => {
                 auth,
                 registerEmail,
                 registerPassword
-            );
-            console.log(user);
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
-    const login = async () => {
-        try {
-            const user = await signInWithEmailAndPassword(
-                auth,
-                loginEmail,
-                loginPassword
-            );
-            console.log(user);
+            ). then(respon => {
+                onsubmitUser(respon.user.uid)
+            })
         } catch (error) {
             console.log(error.message);
         }
@@ -73,28 +82,36 @@ const Register = () => {
                 />
                 <button onClick={register}> Create User</button>
 
+                <div>
+                    <input
+                        placeholder="Name..."
+                        onChange={(event) => {
+                            setName(event.target.value);
+                        }}
+                    />
+
+                    <input
+                        placeholder="Surname..."
+                        onChange={(event) => {
+                            setSurName(event.target.value);
+                        }}
+                    />
+                    <input
+                        placeholder="Age..."
+                        onChange={(event) => {
+                            setAge(Number(event.target.value));
+                        }}
+                    />
+                </div>
+
 
             </div>
+            <button onClick={signInWithGoogle}>Sign up with google</button>
+
             <div>
-                <h3> Login </h3>
-                <input
-                    placeholder="Email..."
-                    onChange={(event) => {
-                        setLoginEmail(event.target.value);
-                    }}
-                />
-                <input
-                    placeholder="Password..."
-                    onChange={(event) => {
-                        setLoginPassword(event.target.value);
-                    }}
-                />
-
-                <button onClick={login}> Login</button>
+                {email}
+                <button onClick={logout}> Sign Out</button>
             </div>
-            {email}
-            <button onClick={logout}> Sign Out</button>
-
         </div>
     )
 }
