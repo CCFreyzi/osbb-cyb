@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import {auth, db} from "../../firebase-config";
-import {setAnotherData, setEmailAndUid} from "../../store/slice/auth-slice";
+import {setAnotherData, setAuth, setEmailAndUid} from "../../store/slice/auth-slice";
 import {collection, getDoc, doc} from "firebase/firestore";
 import {RiUserLine} from 'react-icons/ri'
 
@@ -21,6 +21,8 @@ const Header = () => {
         onAuthStateChanged(auth, (currentUser) => {
             if (currentUser !== null) {
                 dispatch(setEmailAndUid({email: currentUser.email, id: currentUser.uid}));
+                dispatch(setAuth(true))
+
 
                 const userDocRef = doc(db, 'users', currentUser.uid);
                 getDoc(userDocRef)
@@ -29,7 +31,11 @@ const Header = () => {
                         const surName = doc.data().surName;
                         const age = doc.data().age;
 
-                        dispatch(setAnotherData({name: name, surname: surName, age: age}))
+                        const city = doc.data().city;
+                        const street = doc.data().street;
+                        const phonenumber = doc.data().phonenumber;
+                        const apartmentnumber = doc.data().apartmentnumber;
+                        dispatch(setAnotherData({name, surname: surName, age, city, street, phonenumber, apartmentnumber}))
                     })
                     .catch((error) => {
                         console.log("Помилка отримання документів:", error);

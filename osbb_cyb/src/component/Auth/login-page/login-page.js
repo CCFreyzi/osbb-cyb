@@ -10,7 +10,7 @@ import {db} from "../../../firebase-config";
 import {addDoc, collection, doc, setDoc} from "firebase/firestore"
 
 import {auth, googleProvider} from "../../../firebase-config";
-import {setAnotherData, setEmailAndUid} from "../../../store/slice/auth-slice";
+import {setAnotherData, setAuth, setEmailAndUid} from "../../../store/slice/auth-slice";
 import {useDispatch, useSelector} from "react-redux";
 
 const LoginPage = () => {
@@ -24,7 +24,6 @@ const LoginPage = () => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
-
     const usersCollectionRef = collection(db, "users")
 
     const [active, toggleActive] = useState(false)
@@ -32,10 +31,12 @@ const LoginPage = () => {
         toggleActive(!active)
     }
 
-    const onsubmitUser = async (uid) => {
+    const onsubmitUser = async (uid, user = name) => {
         try {
-            await setDoc(doc(usersCollectionRef, `${uid}`), {name: name, surName: 'surName', age: 'age'})
-
+            await setDoc(
+                doc(usersCollectionRef, `${uid}`),
+                {name: user, surName: '', age: '', city: '', street: '', phonenumber: '', apartmentnumber: ''}
+            )
         } catch (err) {
             console.error(err)
         }
@@ -43,8 +44,18 @@ const LoginPage = () => {
 
     const signInWithGoogle = async () => {
         try {
+            await signInWithPopup(auth, googleProvider)
+        } catch (err) {
+            console.error(err)
+        }
+
+    }
+
+    const signUpWithGoogle = async () => {
+        try {
             await signInWithPopup(auth, googleProvider).then(response => {
-                onsubmitUser(response.user.uid)
+                onsubmitUser(response.user.uid, response.user.displayName)
+
 
             })
         } catch (err) {
@@ -79,6 +90,7 @@ const LoginPage = () => {
             );
             setLoginEmail('');
             setLoginPassword('')
+
         } catch (error) {
             console.log(error.message);
         }
@@ -102,15 +114,17 @@ const LoginPage = () => {
                     <h3 className={s.form_title}>Вхід</h3>
 
                     <p>
-                        <input value={loginEmail} type={"email"} className={s.form_input} placeholder={'Email'} onChange={(event) => {
-                            setLoginEmail(event.target.value);
-                        }}/>
+                        <input value={loginEmail} type={"email"} className={s.form_input} placeholder={'Email'}
+                               onChange={(event) => {
+                                   setLoginEmail(event.target.value);
+                               }}/>
                     </p>
 
                     <p>
-                        <input value={loginPassword} type={"text"} className={s.form_input} placeholder={'Пароль'} onChange={(event) => {
-                            setLoginPassword(event.target.value);
-                        }}/>
+                        <input value={loginPassword} type={"text"} className={s.form_input} placeholder={'Пароль'}
+                               onChange={(event) => {
+                                   setLoginPassword(event.target.value);
+                               }}/>
                     </p>
 
                     <p className={s.form_google_btn}>
@@ -125,26 +139,30 @@ const LoginPage = () => {
                     <h3 className={s.form_title}>Реєстрація</h3>
 
                     <p>
-                        <input value={name} type={"text"} className={s.form_input} placeholder={'Ім\'я'} onChange={(event) => {
-                            setName(event.target.value);
-                        }}/>
+                        <input value={name} type={"text"} className={s.form_input} placeholder={'Ім\'я'}
+                               onChange={(event) => {
+                                   setName(event.target.value);
+                               }}/>
                     </p>
 
                     <p>
-                        <input value={registerEmail} type={"email"} className={s.form_input} placeholder={'Email'} onChange={(event) => {
-                            setRegisterEmail(event.target.value);
-                        }}/>
+                        <input value={registerEmail} type={"email"} className={s.form_input} placeholder={'Email'}
+                               onChange={(event) => {
+                                   setRegisterEmail(event.target.value);
+                               }}/>
                     </p>
 
                     <p>
-                        <input value={registerPassword} type={"password"} className={s.form_input} placeholder={'Пароль'} onChange={(event) => {
+                        <input value={registerPassword} type={"password"} className={s.form_input}
+                               placeholder={'Пароль'} onChange={(event) => {
                             setRegisterPassword(event.target.value);
                         }}/>
                     </p>
 
                     <p>
-                        <button className={`${s.form_btn}` + ' ' + `${s.reg_btn}`} onClick={register}>Зареєструватися</button>
-                        <button className={s.form_btn + ' ' + `${s.reg_btn}`} onClick={signInWithGoogle}>Google</button>
+                        <button className={`${s.form_btn}` + ' ' + `${s.reg_btn}`} onClick={register}>Зареєструватися
+                        </button>
+                        <button className={s.form_btn + ' ' + `${s.reg_btn}`} onClick={signUpWithGoogle}>Google</button>
 
                     </p>
 
