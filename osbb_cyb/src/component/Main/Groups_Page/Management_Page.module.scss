@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
+
+
+.wrapper {
+  max-width: 1200px;
+  margin: 10px auto;
+}
+
+.choose_group {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  margin: 0 20px;
+}
+
+.create_group_btn {
+  border-bottom: 3px dashed #4b230b;
+  padding: 8px 15px;
+  font-weight: 550;
+  color: #4b230b;
+  font-family: 'Roboto Condensed', sans-serif;
+
+  transition: 0.5s;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
+.my_group {
+  padding: 8px 15px;
+  color: #4b230b;
+  font-family: 'Roboto Condensed', sans-serif;
+  border-bottom: 3px dashed #4b230b;
+}
+
+.join_group {
+  margin-top: 30px;
+
+  .title {
+    text-align: center;
+  }
+
+  .all_groups {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .all_groups > * {
+    padding: 9px 13px;
+    margin: 20px;
+    font-size: 1.6rem;
+    min-width: 200px;
+    text-align: center;
+    background-color: #03a9f4;
+  }
+
+}
+
+
+/*////////////window////////////////////////*/
+
+
+.selectCreatePage {
+  z-index: 2;
+  position: fixed;
+  width: 2000px;
+  height: 1000vh;
+  background: rgba(0, 0, 0, 0.7);
+  top: -100px;
+  left: -100px;
+
+
+}
+
+.selectCreateBlock {
+  width: 300px;
+  border: 3px solid black;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  padding: 12px;
+}
+
+.selectCreateBlock > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.GiIronCross{
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+.groupName{
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+.groupNameBtn{
+  background-color: #f43648;
+  font-size: 18px;
+  padding: 10px 0;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 10px;
+  width: 100%;
+  cursor: pointer;
+}

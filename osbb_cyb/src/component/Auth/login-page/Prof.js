@@ -1,5 +1,5 @@
 import s from "../../Profile/profile.module.scss";
-import {setAnotherData, setAuth, setEmailAndUid} from "../../../store/slice/auth-slice";
+import {setAnotherData, setAuth, setEmailAndUid, setGroup} from "../../../store/slice/auth-slice";
 import {signOut} from "firebase/auth";
 import {auth, db} from "../../../firebase-config";
 import {useDispatch, useSelector} from "react-redux";
@@ -29,6 +29,7 @@ const Prof = () => {
     const user_apartmentnumber = useSelector(state => state.auth.apartmentnumber);
     const [apartmentnumber, setApartmentnumber] = useState('')
 
+
     useEffect(() => {
         setName(user_name)
         setSurname(user_surname)
@@ -39,15 +40,16 @@ const Prof = () => {
     }, [user_name])
     const logout = async () => {
         dispatch(setEmailAndUid({email: '', id: ''}));
-        dispatch(setAnotherData({name: '', surname: '', age: 0, city: '', street: '', phonenumber: '', apartmentnumber: ''}));
+        dispatch(setAnotherData({name: '', surname: '', city: '', street: '', phonenumber: '', apartmentnumber: '', group: ''}));
+        dispatch(setGroup({group: ''}))
         dispatch(setAuth(false))
         await signOut(auth);
     };
 
     const updateNameAndSurname = async () => {
         const movieDoc = doc(db, "users", uid)
-        await updateDoc(movieDoc, {name: name, surName: surname, age: '123', city: city, street: street, phonenumber: phonenumber, apartmentnumber: apartmentnumber})
-        dispatch(setAnotherData({name: name, surname: surname, age: '123', city: city, street: street, phonenumber: phonenumber, apartmentnumber: apartmentnumber}))
+        await updateDoc(movieDoc, {name: name, surName: surname, city: city, street: street, phonenumber: phonenumber, apartmentnumber: apartmentnumber})
+        dispatch(setAnotherData({name: name, surname: surname, city: city, street: street, phonenumber: phonenumber, apartmentnumber: apartmentnumber}))
     }
 
     return (

@@ -1,0 +1,86 @@
+
+.createPostWindowPage {
+  z-index: 2;
+  position: fixed;
+  width: 2000px;
+  height: 1000vh;
+  background: rgba(0, 0, 0, 0.7);
+  top: -100px;
+  left: -100px;
+}
+
+.createPostWindowBlock {
+  width: 40%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+  padding: 70px;
+  border-radius: 9px;
+
+}
+
+.title {
+  text-align: center;
+}
+
+.createPostForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+label {
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.titlePost,
+textarea {
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 9px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.addPost {
+  margin: 10px auto 0;
+  position: relative;
+  background-color: transparent;
+  color: #4b230b;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 10px;
+  width: 155px;
+  height: 60px;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.addPost {
+  padding: 16px 33px;
+  border-radius: 9px;
+  background-color: orange;
+  border: none;
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.addPost:hover {
+  box-shadow: 7px 5px 56px -14px #C3D900;
+}
+
+.addPost:active {
+  transform: scale(0.97);
+  box-shadow: 7px 5px 56px -10px #C3D900;
+}

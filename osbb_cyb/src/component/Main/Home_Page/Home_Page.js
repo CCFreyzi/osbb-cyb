@@ -5,8 +5,6 @@ const Home_Page = () => {
     return (
         <div>
             <h2>Home_Page</h2>
-            <img src='../../../img/logo/logo.png' alt={''}/>
-
         </div>
     )
 }

@@ -10,17 +10,16 @@ const Contact_Page = () => {
     useEffect(() => {
 
         const getUsers = async () => {
-            //READ THE DB
             try {
                 const data = await getDocs(usersCollectionRef)
+                // console.log(data.docs[0].data())
                 const filteredData = data.docs.map(doc => ({...doc.data(), id: doc.id}))
+                // console.log(filteredData)
                 setUsers(filteredData)
-                console.log(filteredData)
             } catch (err) {
                 console.error(err)
             }
         }
-
         getUsers()
     }, [])
 

@@ -1,21 +1,16 @@
 import s from "./loginPage.module.scss"
 import React, {useState} from "react";
-import {useEffect} from "react";
 import {
     createUserWithEmailAndPassword, signInWithEmailAndPassword,
     signInWithPopup,
-    signOut
 } from "firebase/auth"
 import {db} from "../../../firebase-config";
-import {addDoc, collection, doc, setDoc} from "firebase/firestore"
+import {collection, doc, setDoc} from "firebase/firestore"
 
 import {auth, googleProvider} from "../../../firebase-config";
-import {setAnotherData, setAuth, setEmailAndUid} from "../../../store/slice/auth-slice";
-import {useDispatch, useSelector} from "react-redux";
+
 
 const LoginPage = () => {
-    const dispatch = useDispatch()
-    const email = useSelector(state => state.auth.email);
 
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
@@ -35,7 +30,7 @@ const LoginPage = () => {
         try {
             await setDoc(
                 doc(usersCollectionRef, `${uid}`),
-                {name: user, surName: '', age: '', city: '', street: '', phonenumber: '', apartmentnumber: ''}
+                {name: user, surName: '', city: '', street: '', phonenumber: '', apartmentnumber: '', group: ''}
             )
         } catch (err) {
             console.error(err)
@@ -55,8 +50,6 @@ const LoginPage = () => {
         try {
             await signInWithPopup(auth, googleProvider).then(response => {
                 onsubmitUser(response.user.uid, response.user.displayName)
-
-
             })
         } catch (err) {
             console.error(err)
@@ -77,7 +70,7 @@ const LoginPage = () => {
             setRegisterEmail('')
             setName('')
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
         }
     };
 
@@ -93,6 +86,7 @@ const LoginPage = () => {
 
         } catch (error) {
             console.log(error.message);
+            alert('Email or Password - invalid!')
         }
     };
 

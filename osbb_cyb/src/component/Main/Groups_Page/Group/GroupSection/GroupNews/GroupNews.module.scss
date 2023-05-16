@@ -1,0 +1,177 @@
+.groupNewsPage{
+  display: flex;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  margin: 0 30px 30px 30px;
+}
+
+.post{
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 0 0 20px 0;
+  &:hover {
+    box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+}
+
+.card_title{
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.card_info {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.card_date{
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.addPost {
+  margin: 0 0 25px 0;
+  position: relative;
+  background-color: transparent;
+  color: #4b230b;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 10px;
+  width: 155px;
+  height: 60px;
+  border: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(51, 51, 51, 0.2);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.addPost {
+  padding: 16px 33px;
+  border-radius: 9px;
+  background-color: orange;
+  border: none;
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.addPost:hover {
+  box-shadow: 7px 5px 56px -14px #C3D900;
+}
+
+.addPost:active {
+  transform: scale(0.97);
+  box-shadow: 7px 5px 56px -10px #C3D900;
+}
+
+.dateAndBtn{
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 15px;
+}
+
+.delete_btn {
+
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25);
+  will-change: transform;
+  transform: translateY(2px);
+  transition: transform
+  600ms
+  cubic-bezier(.3, .7, .4, 1);
+}
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+                  to left,
+                  hsl(340deg 100% 16%) 0%,
+                  hsl(340deg 100% 32%) 8%,
+                  hsl(340deg 100% 32%) 92%,
+                  hsl(340deg 100% 16%) 100%
+  );
+}
+
+.front {
+  display: block;
+  position: relative;
+  padding: 12px 27px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: white;
+  background: hsl(345deg 100% 47%);
+  will-change: transform;
+  transform: translateY(-4px);
+  transition: transform
+  600ms
+  cubic-bezier(.3, .7, .4, 1);
+}
+
+.delete_btn:hover {
+  filter: brightness(110%);
+}
+
+.delete_btn:hover .front {
+  transform: translateY(-6px);
+  transition: transform
+  250ms
+  cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.delete_btn:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.delete_btn:hover .shadow {
+  transform: translateY(4px);
+  transition: transform
+  250ms
+  cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.delete_btn:active .shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+.delete_btn:focus:not(:focus-visible) {
+  outline: none;
+}

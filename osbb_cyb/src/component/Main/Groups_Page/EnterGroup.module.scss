@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
+
+
+.groupNameBtn{
+  background-color: #f43648;
+  font-size: 18px;
+  padding: 10px 0;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 10px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.groupName{
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+.GiIronCross{
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+.selectCreateBlock {
+  width: 300px;
+  border: 3px solid black;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: white;
+
+  padding: 12px;
+}
+
+.selectCreatePage {
+  z-index: 2;
+  position: fixed;
+  width: 2000px;
+  height: 1000vh;
+  background: rgba(0, 0, 0, 0.7);
+  top: -100px;
+  left: -100px;
+
+
+}
+.selectCreateBlock > div {
+  display: flex;
+  justify-content: space-between;
+}

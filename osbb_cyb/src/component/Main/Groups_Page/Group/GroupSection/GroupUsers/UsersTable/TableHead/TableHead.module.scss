@@ -1,0 +1,17 @@
+.table_head {
+  display: flex;
+}
+.table_head > *{
+  width: 200px;
+}
+
+.table_head > *:not(:last-child){
+  border-right: 1px solid black;
+
+}
+
+.tableTitle{
+  padding: 5px 10px;
+  font-weight: 650;
+  font-size: 17px;
+}

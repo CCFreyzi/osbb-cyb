@@ -1,0 +1,39 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100vh;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+button {
+  display: block;
+  margin-bottom: 10px;
+  background-color: #ddd;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #aaa;
+  color: #fff;
+}
+
+
+///=====navbar=====/
+
+.groupNavBar{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.groupNavBar > * {
+  padding: 10px 65px 10px 65px;
+  border-bottom: 3px dashed orange;
+}

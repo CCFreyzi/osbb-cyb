@@ -1,27 +1,31 @@
 import React, {useEffect, useState} from "react";
-import s from './header.module.scss'
+import s from './header.module.scss';
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {onAuthStateChanged, signOut} from "firebase/auth";
+import {onAuthStateChanged} from "firebase/auth";
 import {auth, db} from "../../firebase-config";
-import {setAnotherData, setAuth, setEmailAndUid} from "../../store/slice/auth-slice";
-import {collection, getDoc, doc} from "firebase/firestore";
-import {RiUserLine} from 'react-icons/ri'
+import {setAnotherData, setAuth, setEmailAndUid, setGroup} from "../../store/slice/auth-slice";
+import {getDoc, doc} from "firebase/firestore";
+import {RiUserLine} from 'react-icons/ri';
 
 const Header = () => {
-    const [isActive, setIsActive] = useState(true);
-    const dispatch = useDispatch()
-    const fullName = useSelector(state => state.auth.name)
+    const [isActive, setIsActive] = useState(false);
+    const dispatch = useDispatch();
+    const fullName = useSelector(state => state.auth.name);
+    const isAuth = useSelector(state => state.auth.isAuth);
 
     const toggleClass = () => {
         setIsActive(prevState => !prevState);
     };
 
     useEffect(() => {
+        // Коли користувач увійшов в систему або вийшов з неї,
+        // функція onAuthStateChanged повідомляє про це всі компоненти програми,
+        // які підписалися на її події.
         onAuthStateChanged(auth, (currentUser) => {
             if (currentUser !== null) {
                 dispatch(setEmailAndUid({email: currentUser.email, id: currentUser.uid}));
-                dispatch(setAuth(true))
+                dispatch(setAuth(true));
 
 
                 const userDocRef = doc(db, 'users', currentUser.uid);
@@ -29,13 +33,16 @@ const Header = () => {
                     .then((doc) => {
                         const name = doc.data().name;
                         const surName = doc.data().surName;
-                        const age = doc.data().age;
 
                         const city = doc.data().city;
                         const street = doc.data().street;
                         const phonenumber = doc.data().phonenumber;
                         const apartmentnumber = doc.data().apartmentnumber;
-                        dispatch(setAnotherData({name, surname: surName, age, city, street, phonenumber, apartmentnumber}))
+                        const group = doc.data().group;
+
+
+                        dispatch(setAnotherData({name, surname: surName, city, street, phonenumber, apartmentnumber}))
+                        dispatch(setGroup({group: group}))
                     })
                     .catch((error) => {
                         console.log("Помилка отримання документів:", error);
@@ -43,13 +50,6 @@ const Header = () => {
             }
         })
     }, [])
-
-    const logout = async () => {
-        dispatch(setEmailAndUid({email: '', id: ''}))
-        dispatch(setAnotherData({name:'', surname: '', age: 0}))
-        await signOut(auth);
-
-    };
 
     return (
         <header className={s.header}>
@@ -60,16 +60,15 @@ const Header = () => {
                 </div>
                 <ul className={s.links}>
                     <li><NavLink to="/">Home</NavLink></li>
-                    <li><NavLink to="/management">Management</NavLink></li>
+                    {isAuth
+                        ? <li><NavLink to="/groups">Groups</NavLink></li>
+                        : ''}
                     <li><NavLink to="/contact">Contact</NavLink></li>
                 </ul>
                 <div className={s.profile_section}>
                     <RiUserLine size='1.6rem'/>
-                    {/*<img src='img/icons_user.png' />*/}
                     <span className={s.email}>{fullName}</span>
                     <NavLink to={'/profile'} className={s.action_btn}>Profile</NavLink>
-                    {/*<button onClick={logout} className={s.action_btn}>Log out</button>*/}
-
                 </div>
 
                 <div className={s.toggle_btn} onClick={() => toggleClass()}>
