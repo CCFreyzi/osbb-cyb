@@ -48,6 +48,14 @@ const initialState = {
             isShow: false,
             isSortable: true
         },
+        {
+            id: '5',
+            name: 'Delete member',
+            value: '',
+            type: 'STRING',
+            isShow: false,
+            isSortable: true
+        },
     ],
 }
 
@@ -63,9 +71,16 @@ const groupSlice = createSlice({
         },
         setRole(state, action) {
             state.role = action.payload.role
+        },
+        setNewsFromGroup(state, action) {
+            state.news = action.payload.news
+        },
+        setUsersFromGroup(state, action) {
+            state.users = action.payload.users
+
         }
     }
 })
 
-export const {setGroupData, setRole} = groupSlice.actions;
+export const {setGroupData, setRole, setNewsFromGroup, setUsersFromGroup} = groupSlice.actions;
 export default groupSlice.reducer;

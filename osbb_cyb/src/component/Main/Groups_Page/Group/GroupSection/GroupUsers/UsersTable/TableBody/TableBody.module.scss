@@ -12,3 +12,27 @@
   border-right: 1px solid black;
 
 }
+
+.deleteMember{
+  margin: 0;
+  text-align: center;
+  font-weight: 500;
+  font-size: 17px;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #d25858;
+    color: white;
+  }
+}
+
+.switchRoles{
+  margin: 0;
+  text-align: center;
+  font-weight: 500;
+  font-size: 17px;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: orange;
+    color: white;
+  }
+}

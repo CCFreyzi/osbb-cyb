@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {doc, getDoc, updateDoc} from "firebase/firestore";
 import {db} from "../../../../../../firebase-config";
-import {setGroupData, setRole} from "../../../../../../store/slice/group-slice";
+import {setGroupData, setNewsFromGroup, setRole} from "../../../../../../store/slice/group-slice";
 import s from './GroupNews.module.scss'
 import CreatePostWindow from "./CreatePostWindow";
 import {v4 as uuidv4} from "uuid";
@@ -26,8 +26,8 @@ const GroupNews = () => {
         const userDocRef = doc(db, 'groups', id);
         getDoc(userDocRef)
             .then((doc) => {
-                const name = doc.data().name;
-                const key = doc.data().key;
+                // const name = doc.data().name;
+                // const key = doc.data().key;
                 const users = doc.data().users;
                 const news = doc.data()?.news;
 
@@ -36,7 +36,8 @@ const GroupNews = () => {
                         dispatch(setRole({role: user.role}));
                     }
                 }
-                dispatch(setGroupData({name, key, users, news}));
+                // dispatch(setGroupData({name, key, users, news}));
+                dispatch(setNewsFromGroup( {news:news}))
                 setNews(news);
             })
             .catch((error) => {

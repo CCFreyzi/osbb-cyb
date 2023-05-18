@@ -30,7 +30,7 @@ const LoginPage = () => {
         try {
             await setDoc(
                 doc(usersCollectionRef, `${uid}`),
-                {name: user, surName: '', city: '', street: '', phonenumber: '', apartmentnumber: '', group: ''}
+                {name: user, surName: '', city: '', street: '', phonenumber: '', apartmentnumber: '', group: '', id: uid}
             )
         } catch (err) {
             console.error(err)

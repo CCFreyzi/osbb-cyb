@@ -8,27 +8,55 @@ import {setAnotherData, setGroup} from "../../../../../../store/slice/auth-slice
 import {v4 as uuidv4} from "uuid";
 import TableHead from "./UsersTable/TableHead/TableHead";
 import TableBody from "./UsersTable/TableBody/TableBody";
+import {setNewsFromGroup, setRole, setUsersFromGroup} from "../../../../../../store/slice/group-slice";
+import {useParams} from "react-router-dom";
 
 const GroupUser = () => {
+    const dispatch = useDispatch();
+
     const [users, setUsers] = useState([]);
     const [columns, setColumns] = useState([]);
 
+    const {id} = useParams();
+    const {id: userId, isAuth} = useSelector(state => state.auth);
+    const getColumn = useSelector(state => state.group.columns);
+    const usersFromGroup = useSelector(state => state.group.users)
+    const getData = () => {
+        const userDocRef = doc(db, 'groups', id);
+        getDoc(userDocRef)
+            .then((doc) => {
+                const users = doc.data().users;
+                for (let user of users) {
+                    if (user.id === userId) {
+                        dispatch(setRole({role: user.role}));
+                    }
+                }
+                dispatch(setUsersFromGroup( {users:users}))
+                return users;
+            }).then((users) => {
+            for (let user of users) {
+                const userDocRef = doc(db, 'users', user.id);
+                getDoc(userDocRef)
+                    .then((doc) => {
+                        // console.log(doc.data())
+                        const fullInf = {...doc.data(), role: user.role}
+                        setUsers(prevUsers => [...prevUsers, fullInf])
+                    })
+            }
+        })
+            .catch((error) => {
+                console.log("Помилка отримання данних групи:", error);
+            });
+    }
 
-    const getColumn = useSelector(state => state.group.columns)
-    const usersWithGroup = useSelector(state => state.group.users)
     useEffect(() => {
-        setColumns(getColumn)
-        for (let user of usersWithGroup) {
-            const userDocRef = doc(db, 'users', user.id);
-            getDoc(userDocRef)
-                .then((doc) => {
-                    // console.log(doc.data())
-                    const fullInf = {...doc.data(), role: user.role}
-                    setUsers(prevUsers => [...prevUsers, fullInf])
-                })
-        }
+        isAuth && getData()
+    }, [isAuth])
+
+    useEffect(() => {
+        setColumns(getColumn);
     }, [])
-    // console.log(users)
+    console.log(usersFromGroup)
     // console.log(columns)
     return (
         <div className={s.groupUsersPage}>
