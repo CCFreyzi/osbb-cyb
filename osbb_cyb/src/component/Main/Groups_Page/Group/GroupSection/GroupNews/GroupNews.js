@@ -4,10 +4,9 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {doc, getDoc, updateDoc} from "firebase/firestore";
 import {db} from "../../../../../../firebase-config";
-import {setGroupData, setNewsFromGroup, setRole} from "../../../../../../store/slice/group-slice";
+import {setNewsFromGroup, setRole} from "../../../../../../store/slice/group-slice";
 import s from './GroupNews.module.scss'
 import CreatePostWindow from "./CreatePostWindow";
-import {v4 as uuidv4} from "uuid";
 import EditPostWindow from "./EditPostWindow/EditPostWindow";
 
 const GroupNews = () => {
@@ -64,7 +63,6 @@ const GroupNews = () => {
         const newsDocRef = doc(db, 'groups', id);
         getDoc(newsDocRef)
             .then(() => {
-                const uuid = uuidv4()
                 updateDoc(newsDocRef, {news: [...sortNews]});
             }).then(() => {
             getData();
@@ -78,7 +76,6 @@ const GroupNews = () => {
     useEffect(() => {
         userId && getData();
     }, [userId]);
-
     return (
         <div className={s.groupNewsPage}>
             <GroupNavbar/>
