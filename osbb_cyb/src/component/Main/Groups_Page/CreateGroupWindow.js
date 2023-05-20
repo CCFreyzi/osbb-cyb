@@ -21,8 +21,8 @@ const CreateGroupWindow = ({changeName, getGroups}) => {
 
     // const
 
-    const cancelShowing = (e) => {
-        if (e.target.className === 'Management_Page_selectCreatePage__jhpuR') {
+    const cancelShowing = (event) => {
+        if (event.target.className === 'Management_Page_selectCreatePage__f-D5R') {
             changeName()
         }
     };

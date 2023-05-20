@@ -10,7 +10,7 @@ const GroupNavbar = () => {
             <NavLink to={`/groups/${id}/news`}>News</NavLink>
             <NavLink to={`/groups/${id}/users`}>Users</NavLink>
             <NavLink to={`/groups/${id}/events`}>Events</NavLink>
-            <NavLink to={`/groups/${id}/chats`}>chats</NavLink>
+            <NavLink to={`/groups/${id}/chat`}>chats</NavLink>
         </div>
     )
 }

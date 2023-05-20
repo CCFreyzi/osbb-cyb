@@ -8,6 +8,7 @@ import {setGroupData, setNewsFromGroup, setRole} from "../../../../../../store/s
 import s from './GroupNews.module.scss'
 import CreatePostWindow from "./CreatePostWindow";
 import {v4 as uuidv4} from "uuid";
+import EditPostWindow from "./EditPostWindow/EditPostWindow";
 
 const GroupNews = () => {
     const dispatch = useDispatch();
@@ -17,9 +18,21 @@ const GroupNews = () => {
 
     const [news, setNews] = useState([])
     const [showCreatePostWindow, setShowCreatePostWindow] = useState(false);
+    const [showEditPostWindow, setShowEditPostWindow] = useState(false);
+
+    const [editTitle, setEditTitle] = useState('');
+    const [editInfo, setEditInfo] = useState('');
+    const [postId, setPostId] = useState('');
+
 
     const showWindow = () => {
         setShowCreatePostWindow(!showCreatePostWindow)
+    }
+    const showEditWindow = (postTitle, postInfo, postId) => {
+        setEditTitle(postTitle)
+        setEditInfo(postInfo)
+        setPostId(postId)
+        setShowEditPostWindow(!showEditPostWindow)
     }
 
     const getData = () => {
@@ -37,7 +50,7 @@ const GroupNews = () => {
                     }
                 }
                 // dispatch(setGroupData({name, key, users, news}));
-                dispatch(setNewsFromGroup( {news:news}))
+                dispatch(setNewsFromGroup({news: news}))
                 setNews(news);
             })
             .catch((error) => {
@@ -83,10 +96,17 @@ const GroupNews = () => {
                                 creation:</b> {new Date(post.createDate).getDate()} / {new Date(post.createDate).getMonth() + 1} / {new Date(post.createDate).getFullYear() + ";"} {}<b>Time</b> {new Date(post.createDate).getHours()}:{new Date(post.createDate).getMinutes() + ";"}
                             </div>
                             {userRole === 'adm'
-                                ? <div className={s.delete_btn} onClick={() => deletePost(post.id)}>
-                                    <span className={s.shadow}></span>
-                                    <span className={s.edge}></span>
-                                    <span className={s.front}>Delete post</span>
+                                ? <div className={s.btn_block}>
+                                    <div className={s.delete_btn} onClick={() => showEditWindow(post.title, post.info, post.id)}>
+                                        <span className={s.shadow}></span>
+                                        <span className={s.edge + ' ' + s.edit_edge}></span>
+                                        <span className={s.front + ' ' + s.edit_front}>Edit post</span>
+                                    </div>
+                                    <div className={s.delete_btn} onClick={() => deletePost(post.id)}>
+                                        <span className={s.shadow}></span>
+                                        <span className={s.edge}></span>
+                                        <span className={s.front}>Delete post</span>
+                                    </div>
                                 </div>
                                 : ''
                             }
@@ -98,7 +118,12 @@ const GroupNews = () => {
 
             {showCreatePostWindow
                 ? <CreatePostWindow showWindow={showWindow} getData={getData} id={id}/>
-                : ''}
+                : ''
+            }
+            {showEditPostWindow
+                ? <EditPostWindow showEditWindow={showEditWindow} editTitle={editTitle} editInfo={editInfo} postId={postId} getData={getData} id={id}/>
+                : ''
+            }
 
         </div>
     )

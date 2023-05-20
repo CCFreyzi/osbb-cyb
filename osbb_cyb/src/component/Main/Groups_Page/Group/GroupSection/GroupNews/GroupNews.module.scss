@@ -129,6 +129,16 @@
   );
 }
 
+.edit_edge{
+  background: linear-gradient(
+                  to left,
+                  hsl(240, 91%, 14%) 0%,
+                  hsl(240, 91%, 14%) 8%,
+                  hsl(240, 63%, 31%) 92%,
+                  hsl(240, 63%, 31%) 100%
+  );
+}
+
 .front {
   display: block;
   position: relative;
@@ -142,6 +152,10 @@
   transition: transform
   600ms
   cubic-bezier(.3, .7, .4, 1);
+}
+.edit_front{
+  background: hsl(240, 64%, 52%);
+
 }
 
 .delete_btn:hover {
@@ -174,4 +188,9 @@
 
 .delete_btn:focus:not(:focus-visible) {
   outline: none;
+}
+
+.btn_block{
+  display: flex;
+  gap: 20px;
 }

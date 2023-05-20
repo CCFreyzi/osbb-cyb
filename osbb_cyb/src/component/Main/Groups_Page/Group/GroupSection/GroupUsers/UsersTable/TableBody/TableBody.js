@@ -4,7 +4,7 @@ import {v4 as uuidv4} from "uuid";
 import {doc, getDoc, updateDoc} from "firebase/firestore";
 import {db} from "../../../../../../../../firebase-config";
 import {useDispatch, useSelector} from "react-redux";
-import {setUsers} from "../../../../../../../../store/slice/group-slice";
+import {setRole, setUsers, setUsersFromGroup} from "../../../../../../../../store/slice/group-slice";
 import {useEffect, useState} from "react";
 import SwitchRoleWind from "./SwitchRoleWind/SwitchRoleWind";
 
@@ -15,14 +15,13 @@ const RENDERS = {
     NUMBER: NumberRenderer,
 }
 const TableBody = ({users, columns}) => {
-    const  [switchRoleWind, setSwitchRoleWind] = useState(false)
+    const dispatch = useDispatch();
+    const  [switchRoleWind, setSwitchRoleWind] = useState(false);
     const groupId = useSelector(state => state.auth.group);
     const userFromGroup = useSelector(state => state.group.users);
     const idAdm = useSelector(state => state.auth.id);
     const role = useSelector(state => state.group.role);
-    const [userId, setUserId] = useState('')
-
-
+    const [userId, setUserId] = useState('');
 
     const deleteUser = (userId) => {
         const sortUsers = userFromGroup.filter(user => user.id !== userId);
@@ -31,7 +30,8 @@ const TableBody = ({users, columns}) => {
         const userDoc = doc(db, "users", userId);
         updateDoc(userDoc, {group: ''}).then(() => {
             updateDoc(userDocRef, {users: [...sortUsers]}).then(() => {
-                // dispatch(setUsersFromGroup())
+                dispatch(setRole({role: 'member'}));
+                dispatch(setRole({role: 'adm'}));
             })
         })
     }
@@ -39,8 +39,8 @@ const TableBody = ({users, columns}) => {
     const switchRoles = (userId) => {
         setUserId(userId)
         setSwitchRoleWind(!switchRoleWind)
-
     }
+
     return <div className={s.table_body}>
         {users.map(user => {
             const uuid = uuidv4()

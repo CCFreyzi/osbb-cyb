@@ -31,7 +31,7 @@ const GroupUser = () => {
                         dispatch(setRole({role: user.role}));
                     }
                 }
-                dispatch(setUsersFromGroup( {users:users}))
+                dispatch(setUsersFromGroup({users: users}))
                 return users;
             }).then((users) => {
             for (let user of users) {
@@ -56,7 +56,6 @@ const GroupUser = () => {
     useEffect(() => {
         setColumns(getColumn);
     }, [])
-    console.log(usersFromGroup)
     // console.log(columns)
     return (
         <div className={s.groupUsersPage}>

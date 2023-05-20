@@ -8,14 +8,14 @@ import {Navigate, NavLink, useNavigate} from "react-router-dom";
 import EnterGroup from "./EnterTheGroup";
 
 const Groups_Page = () => {
-    // const navigate = useNavigate();
-    //
-    // const isAuth = useSelector(state => state.auth.isAuth)
-    // useEffect(() => {
-    //     if (!isAuth) {
-    //         navigate("/profile");
-    //     }
-    // }, [isAuth])
+    const navigate = useNavigate();
+
+    const isAuth = useSelector(state => state.auth.isAuth)
+    useEffect(() => {
+        if (!isAuth) {
+            navigate("/profile");
+        }
+    }, [isAuth])
 
     const [groups, setgroups] = useState([])
 
@@ -33,7 +33,6 @@ const Groups_Page = () => {
             const data = await getDocs(usersCollectionRef)
             const filteredData = data.docs.map(doc => ({...doc.data(), id: doc.id}))
             setgroups(filteredData)
-            console.log(filteredData)
         } catch (err) {
             console.error(err)
         }
@@ -69,7 +68,7 @@ const Groups_Page = () => {
                 <h2 className={s.title}>ALL GROUPS</h2>
                 <div className={s.all_groups}>
                     {groups.map(group => {
-                        return <div key={group.id} onClick={() => writeKeyBlock(group.key, group.id)}> {group.name}</div>
+                        return <div key={group.id} className={s.group} onClick={() => writeKeyBlock(group.key, group.id)}> {group.name}</div>
                     })}
                 </div>
             </div>

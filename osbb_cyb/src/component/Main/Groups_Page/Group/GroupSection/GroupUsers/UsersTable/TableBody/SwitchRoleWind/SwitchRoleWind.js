@@ -32,10 +32,10 @@ const SwitchRoleWind = ({switchRoles, userId, idAdm}) => {
 
         console.log(sortUserFromGroup);
         const userDocRef = doc(db, 'groups', id);
-        dispatch(setUsersFromGroup({users: sortUserFromGroup}))
-        dispatch(setRole({role: 'member'}))
+        dispatch(setUsersFromGroup({users: sortUserFromGroup}));
+        dispatch(setRole({role: 'member'}));
         await updateDoc(userDocRef, {users: [...sortUserFromGroup]});
-        switchRoles()
+        switchRoles();
     }
 
     return (

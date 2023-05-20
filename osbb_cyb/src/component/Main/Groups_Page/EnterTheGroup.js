@@ -15,8 +15,10 @@ const EnterGroup = ({groupKey, groupID, writeKeyBlock}) => {
     const [enterKey, setEnterKey] = useState('')
     const [users, setUsers] = useState([])
 
-    const cancelShowing = () => {
-        writeKeyBlock('', '')
+    const cancelShowing = (event) => {
+        if ('EnterGroup_selectCreatePage__sZ8xl' === event.target.className) {
+            writeKeyBlock('', '')
+        }
     }
 
 
@@ -43,17 +45,17 @@ const EnterGroup = ({groupKey, groupID, writeKeyBlock}) => {
     }
     const joinGroup = () => {
         if (enterKey === groupKey) {
-            writeData()
+            writeKeyBlock()
         }
     }
 
     return (
-        <div className={s.selectCreatePage}>
+        <div className={s.selectCreatePage} onClick={event => cancelShowing(event)}>
 
             <div className={s.selectCreateBlock}>
                 <div>
                     <h3 className={s.title_window}>Key</h3>
-                    <GiIronCross size={21} className={s.GiIronCross} onClick={cancelShowing}/>
+                    <GiIronCross size={21} className={s.GiIronCross} onClick={writeKeyBlock}/>
                 </div>
                 <input type={"text"} className={s.groupName} onChange={event => setEnterKey(event.target.value)}
                        placeholder={'Key...'}/>

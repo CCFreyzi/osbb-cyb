@@ -7,6 +7,7 @@ import Groups_Page from "./Groups_Page/./Groups_Page";
 import Profile from "../Profile/Profile";
 import GroupUser from "./Groups_Page/Group/GroupSection/GroupUsers/GroupUser";
 import GroupNews from "./Groups_Page/Group/GroupSection/GroupNews/GroupNews";
+import GroupChat from "./Groups_Page/Group/GroupSection/GroupChat/GroupChat";
 
 const Main = () => {
 
@@ -17,6 +18,7 @@ const Main = () => {
                 <Route path={'/groups'} element={<Groups_Page />}/>
                 <Route path={'/groups/:id/*'} element={<GroupNews />}/>
                 <Route path={'/groups/:id/users'} element={<GroupUser />}/>
+                <Route path={'/groups/:id/chat'} element={<GroupChat />}/>
                 <Route path={'/contact'} element={<Contact_Page />}/>
                 <Route path={'/profile'} element={<Profile />}/>
             </Routes>
