@@ -45,6 +45,7 @@ const EnterGroup = ({groupKey, groupID, writeKeyBlock}) => {
     }
     const joinGroup = () => {
         if (enterKey === groupKey) {
+            writeData()
             writeKeyBlock()
         }
     }
