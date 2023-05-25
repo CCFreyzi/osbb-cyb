@@ -35,7 +35,7 @@ const EditPostWindow = ({showEditWindow, editTitle, editInfo, id, postId, getDat
     return (
         <div className={s.createPostWindowPage} onClick={event => closeOnBg(event)}>
             <div className={s.createPostWindowBlock}>
-                <h3 className={s.title}>Create post</h3>
+                <h3 className={s.title}>Edit post</h3>
                 <form className={s.createPostForm}>
                     <label htmlFor={'titlePost'}>Title</label>
                     <input

@@ -1,12 +1,16 @@
 .tableText{
   display: flex;
+
 }
 
 .tableText > *{
   width: 200px;
   padding: 5px 10px;
+  font-size: 17px;
   border-top: 1px solid black;
-  /*border-right: 1px solid black;*/
+  background-color: #f2f2f2;
+  color: #333;
+  cursor: pointer;
 }
 .tableText > *:not(:last-child) {
   border-right: 1px solid black;

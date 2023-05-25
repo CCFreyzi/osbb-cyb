@@ -3,3 +3,42 @@
   max-width: 1200px;
   margin: 20px auto;
 }
+.messages{
+  overflow-y: scroll;
+  height: 250px;
+}
+.chat{
+  width: 100%;
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  max-height: 400px;
+}
+.chat_form{
+  display: flex;
+}
+.chat_input {
+  width: 100%;
+  margin: 0 10px 0 0;
+  border: 1px solid black;
+  font-size: 19px;
+  padding: 0 8px;
+}
+
+.chat_btn{
+  border: 1px solid black;
+  padding: 15px 20px;
+  font-size: 18px;
+  &:hover {
+    cursor: pointer;
+
+  }
+}
+.message{
+  display: flex;
+  padding: 5px;
+}
+.message_text{
+  font-size: 18px;
+}

@@ -4,11 +4,9 @@ import GroupNavbar from "../../GroupNavbar";
 import s from './GroupUser.module.scss'
 import {doc, getDoc} from "firebase/firestore";
 import {db} from "../../../../../../firebase-config";
-import {setAnotherData, setGroup} from "../../../../../../store/slice/auth-slice";
-import {v4 as uuidv4} from "uuid";
 import TableHead from "./UsersTable/TableHead/TableHead";
 import TableBody from "./UsersTable/TableBody/TableBody";
-import {setNewsFromGroup, setRole, setUsersFromGroup} from "../../../../../../store/slice/group-slice";
+import {setRole, setUsersFromGroup} from "../../../../../../store/slice/group-slice";
 import {useParams} from "react-router-dom";
 
 const GroupUser = () => {
@@ -56,13 +54,13 @@ const GroupUser = () => {
     useEffect(() => {
         setColumns(getColumn);
     }, [])
-    // console.log(columns)
+    console.log(users)
     return (
         <div className={s.groupUsersPage}>
             <GroupNavbar/>
             <div className={s.listUsers}>
                 <TableHead columns={columns}/>
-                <TableBody columns={columns} users={users}/>
+                <TableBody columns={columns} users={users} setUsers={setUsers}/>
             </div>
         </div>
     )
